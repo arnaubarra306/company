@@ -1,0 +1,7 @@
+<schema>
+    <version>1.0.0</version>
+    <commands>
+        <command>create table a</command>
+        <command>create table b</command>
+    </commands>
+</schema>
