@@ -1,5 +1,7 @@
 package cat.uvic.teknos.m06.company.utilities;
 
+import cat.uvic.teknos.m06.company.utilities.xml.ConnectionProperties;
+import cat.uvic.teknos.m06.company.utilities.xml.ConnectionPropertiesFactory;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -22,7 +24,7 @@ class ConnectionPropertiesFactoryTest {
         var properties = new ConnectionProperties();
         properties.setUrl("jdbc:....");
         properties.setUsername("root");
-        properties.setPassword(("1qaz2wsx"));
+        properties.setPassword(("null"));
 
         var factory = new ConnectionPropertiesFactory();
         factory.save(properties);

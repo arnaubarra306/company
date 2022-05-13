@@ -25,6 +25,5 @@ public class  SchemaImplementer implements SchemaLoader {
         }catch(Exception e){ System.out.println(e);}
 
 
-    //Do the commands on the database
     }
 }
