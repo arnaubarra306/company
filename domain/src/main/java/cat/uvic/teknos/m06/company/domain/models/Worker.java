@@ -23,7 +23,7 @@ public class Worker {
 
     public void setSurname(String surname) { surname = surname;}
 
-    public void addS(Worker cust) {
+    public void addS(Worker worker) {
     }
 
 

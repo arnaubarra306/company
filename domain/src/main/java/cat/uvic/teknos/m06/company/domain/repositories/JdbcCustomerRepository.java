@@ -25,7 +25,7 @@ public class JdbcCustomerRepository implements Repository<Customer, Integer>{
         if (worker == null) {
             throw new RepositoryException("The products is null!");
         }
-        if (worker.getCode() <= 0) {
+        if (worker.getCustomerCode() <= 0) {
             insert(JdbcCustomerRepository.customer);
         } else {
             update(worker);
@@ -36,7 +36,7 @@ public class JdbcCustomerRepository implements Repository<Customer, Integer>{
     private void update(Customer customer) {
         try (var preparedStatement = connection.prepareStatement(UPDATE)) {
             preparedStatement.setString(1, customer.getName());
-            preparedStatement.setInt(1, customer.setCode());
+            preparedStatement.setInt(1, customer.setCustomerCode());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RepositoryException("Exception while inserting: " + customer, e);
@@ -52,7 +52,7 @@ public class JdbcCustomerRepository implements Repository<Customer, Integer>{
             if (!generatedKeysResultSet.next()) {
                 throw new RepositoryException("Exception while inserting: id not generated" + customer);
             }
-            customer.setCode();
+            customer.setCustomerCode();
         } catch (SQLException e) {
             throw new RepositoryException("Exception while inserting: " + customer, e);
         }
@@ -71,10 +71,10 @@ public class JdbcCustomerRepository implements Repository<Customer, Integer>{
         try (var statement = connection.createStatement()) {
             var resultSet = statement.executeQuery(SELECT_ALL);
             while (resultSet.next()) {
-                var cust = new Customer();
-                cust.setCode();
-                cust.setName(resultSet.getString("SURNAME"));
-                cust.addS(cust);
+                var customer = new Customer();
+                customer.setCustomerCode();
+                customer.setName(resultSet.getString("name"));
+                customer.addS(customer);
             }
 
             return Customer;

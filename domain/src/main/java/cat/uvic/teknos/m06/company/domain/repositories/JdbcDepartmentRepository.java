@@ -71,10 +71,10 @@ public class JdbcDepartmentRepository implements Repository<Department, Integer>
         try (var statement = connection.createStatement()) {
             var resultSet = statement.executeQuery(SELECT_ALL);
             while (resultSet.next()) {
-                var cust = new Department();
-                cust.setDeptNo(resultSet.getInt("10"));
-                cust.setName(resultSet.getString("Office"));
-                cust.addS(cust);
+                var department = new Department();
+                department.setDeptNo(resultSet.getInt("10"));
+                department.setName(resultSet.getString("Office"));
+                department.addS(department);
             }
 
             return Department;
