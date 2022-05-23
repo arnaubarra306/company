@@ -1,83 +1,83 @@
 package cat.uvic.teknos.m06.company.domain.repositories;
 
-import cat.uvic.teknos.m06.company.domain.models.Department;
+import cat.uvic.teknos.m06.company.domain.models.Customer;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JdbcDepartmentRepository implements Repository<Department, Integer>{
+public class JdbcCustomerRepository implements Repository<Customer, Integer>{
     private static final String INSERT = "insert into products (name) values (?)";
     private static final String UPDATE = "update products set name = ? where id = ?";
     private static final String SELECT_ALL = "select id, name from products";
     private static final int worker = 1000;
-    private static final List<Department> Department = null;
-    private static Department Customer;
+    private static final List<Customer> Customer = null;
+    private static Customer customer;
     private final Connection connection;
 
-    public JdbcDepartmentRepository(Connection connection) {
+    public JdbcCustomerRepository(Connection connection) {
         this.connection = connection;
     }
 
     @Override
-    public void save(Department department) {
-        if (department == null) {
+    public void save(Customer worker) {
+        if (worker == null) {
             throw new RepositoryException("The products is null!");
         }
-        if (department.getDeptNo() <= 0) {
-            insert(JdbcDepartmentRepository.Customer);
+        if (worker.getCode() <= 0) {
+            insert(JdbcCustomerRepository.customer);
         } else {
-            update(department);
+            update(worker);
         }
     }
 
 
-    private void update(Department department) {
+    private void update(Customer customer) {
         try (var preparedStatement = connection.prepareStatement(UPDATE)) {
-            preparedStatement.setString(1, department.getName());
-            preparedStatement.setInt(1, department.getDeptNo());
+            preparedStatement.setString(1, customer.getName());
+            preparedStatement.setInt(1, customer.setCode());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new RepositoryException("Exception while inserting: " + department, e);
+            throw new RepositoryException("Exception while inserting: " + customer, e);
         }
 
     }
 
-    private void insert(Department department) {
+    private void insert(Customer customer) {
         try (var preparedStatement = connection.prepareStatement(INSERT)) {
-            preparedStatement.setString(1, department.getName());
+            preparedStatement.setString(1, customer.getName());
             preparedStatement.executeUpdate();
             var generatedKeysResultSet = preparedStatement.getGeneratedKeys();
             if (!generatedKeysResultSet.next()) {
-                throw new RepositoryException("Exception while inserting: id not generated" + department);
+                throw new RepositoryException("Exception while inserting: id not generated" + customer);
             }
-            department.setDeptNo(generatedKeysResultSet.getInt(1));
+            customer.setCode();
         } catch (SQLException e) {
-            throw new RepositoryException("Exception while inserting: " + department, e);
+            throw new RepositoryException("Exception while inserting: " + customer, e);
         }
     }
 
-    public void delete(Department department) {}
+    public void delete(Customer customer) {}
 
     @Override
-    public Department getById(Integer id) {
+    public Customer getById(Integer id) {
         return null;
     }
 
     @Override
-    public List<Department> getAll() {
-        var products = new ArrayList<Department>();
+    public List<Customer> getAll() {
+        var products = new ArrayList<Customer>();
         try (var statement = connection.createStatement()) {
             var resultSet = statement.executeQuery(SELECT_ALL);
             while (resultSet.next()) {
-                var cust = new Department();
-                cust.setDeptNo(resultSet.getInt("10"));
-                cust.setName(resultSet.getString("Office"));
+                var cust = new Customer();
+                cust.setCode();
+                cust.setName(resultSet.getString("SURNAME"));
                 cust.addS(cust);
             }
 
-            return Department;
+            return Customer;
         } catch (SQLException e) {
             throw new RepositoryException("Exception while executing get all");
         }

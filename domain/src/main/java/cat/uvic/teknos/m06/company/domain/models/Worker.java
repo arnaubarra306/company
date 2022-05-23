@@ -3,7 +3,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 
 public class Worker {
-    private static final int Cust = 0;
+    private static final int Worker = 0;
     private int compNO;
     private  String surname;
     private  String dept;
