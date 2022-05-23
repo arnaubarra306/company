@@ -16,9 +16,13 @@ public class  SchemaImplementer implements SchemaLoader {
     //Read the schema.sql
             Statement stmt=con.createStatement();
 
-            var inputStream = new BufferedReader(new FileReader("resources/CommandLoader.csv", Charset.forName("utf-8")));
+            var inputStream = new BufferedReader(new FileReader("src/main/resources/schema.sql", Charset.forName("utf-8")));
+            String line="";
+            String command="";
+            while((line =inputStream.readLine())!= null){
+                System.out.println(line);
 
-            while(inputStream.readLine()!= null)
+            }
 
             con.close();
             ResultSet rs=stmt.executeQuery("select * from emp");

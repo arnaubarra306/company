@@ -1,1 +1,1 @@
-<ConnectionProperties><url>jdbc:....</url><username>root</username><password>null</password></ConnectionProperties>
+<ConnectionProperties><url>jdbc:mysql://localhost:3306/company</url><username>root</username><password>null</password></ConnectionProperties>
