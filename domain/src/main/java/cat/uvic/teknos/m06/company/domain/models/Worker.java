@@ -2,7 +2,7 @@ package cat.uvic.teknos.m06.company.domain.models;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 
-public class Customer {
+public class Worker {
     private static final int Cust = 0;
     private int compNO;
     private  String surname;
@@ -23,7 +23,7 @@ public class Customer {
 
     public void setSurname(String surname) { surname = surname;}
 
-    public void addS(Customer cust) {
+    public void addS(Worker cust) {
     }
 
 

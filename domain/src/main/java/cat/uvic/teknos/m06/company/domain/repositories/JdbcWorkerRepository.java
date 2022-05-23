@@ -1,80 +1,80 @@
 package cat.uvic.teknos.m06.company.domain.repositories;
-import cat.uvic.teknos.m06.company.domain.models.Customer;
+import cat.uvic.teknos.m06.company.domain.models.Worker;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-public class JdbcCustomerRepository implements Repository<Customer, Integer>{
+public class JdbcWorkerRepository implements Repository<Worker, Integer>{
     private static final String INSERT = "insert into products (name) values (?)";
     private static final String UPDATE = "update products set name = ? where id = ?";
     private static final String SELECT_ALL = "select id, name from products";
-    private static final int cust = 1000;
-    private static final List<Customer> Cust = null;
-    private static cat.uvic.teknos.m06.company.domain.models.Customer Customer;
+    private static final int worker = 1000;
+    private static final List<Worker> Worker = null;
+    private static Worker Customer;
     private final Connection connection;
 
-    public JdbcCustomerRepository(Connection connection) {
+    public JdbcWorkerRepository(Connection connection) {
         this.connection = connection;
     }
 
     @Override
-    public void save(Customer cust) {
-        if (cust == null) {
+    public void save(Worker worker) {
+        if (worker == null) {
             throw new RepositoryException("The products is null!");
         }
-        if (cust.getSalary() <= 0) {
-            insert(JdbcCustomerRepository.Customer);
+        if (worker.getSalary() <= 0) {
+            insert(JdbcWorkerRepository.Customer);
         } else {
-            update(cust);
+            update(worker);
         }
     }
 
 
-    private void update(Customer cust) {
+    private void update(Worker worker) {
         try (var preparedStatement = connection.prepareStatement(UPDATE)) {
-            preparedStatement.setString(1, cust.getSurname());
-            preparedStatement.setInt(1, cust.getSalary());
+            preparedStatement.setString(1, worker.getSurname());
+            preparedStatement.setInt(1, worker.getSalary());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new RepositoryException("Exception while inserting: " + cust, e);
+            throw new RepositoryException("Exception while inserting: " + worker, e);
         }
 
     }
 
-    private void insert(Customer cust) {
+    private void insert(Worker worker) {
         try (var preparedStatement = connection.prepareStatement(INSERT)) {
-            preparedStatement.setString(1, cust.getSurname());
+            preparedStatement.setString(1, worker.getSurname());
             preparedStatement.executeUpdate();
             var generatedKeysResultSet = preparedStatement.getGeneratedKeys();
             if (!generatedKeysResultSet.next()) {
-                throw new RepositoryException("Exception while inserting: id not generated" + cust);
+                throw new RepositoryException("Exception while inserting: id not generated" + worker);
             }
-            cust.setSalary(generatedKeysResultSet.getInt(1));
+            worker.setSalary(generatedKeysResultSet.getInt(1));
         } catch (SQLException e) {
-            throw new RepositoryException("Exception while inserting: " + cust, e);
+            throw new RepositoryException("Exception while inserting: " + worker, e);
         }
     }
 
-    public void delete(Customer cust) {}
+    public void delete(Worker worker) {}
 
     @Override
-    public Customer getById(Integer id) {
+    public Worker getById(Integer id) {
         return null;
     }
 
     @Override
-    public List<Customer> getAll() {
-        var products = new ArrayList<Customer>();
+    public List<Worker> getAll() {
+        var products = new ArrayList<Worker>();
         try (var statement = connection.createStatement()) {
             var resultSet = statement.executeQuery(SELECT_ALL);
             while (resultSet.next()) {
-                var cust = new Customer();
+                var cust = new Worker();
                 cust.setSalary(resultSet.getInt("SALLARY"));
                 cust.setSurname(resultSet.getString("SURNAME"));
                 cust.addS(cust);
             }
 
-            return Cust;
+            return Worker;
         } catch (SQLException e) {
             throw new RepositoryException("Exception while executing get all");
         }
