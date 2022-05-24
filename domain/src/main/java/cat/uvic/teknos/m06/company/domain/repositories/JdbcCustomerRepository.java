@@ -1,6 +1,7 @@
 package cat.uvic.teknos.m06.company.domain.repositories;
 
 import cat.uvic.teknos.m06.company.domain.models.Customer;
+import cat.uvic.teknos.m06.company.domain.models.Department;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -20,8 +21,7 @@ public class JdbcCustomerRepository implements Repository<Customer, Integer>{
         this.connection = connection;
     }
 
-    @Override
-    public void save(Customer worker) {
+    public void save(Department worker) {
         if (worker == null) {
             throw new RepositoryException("The products is null!");
         }
