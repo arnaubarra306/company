@@ -1,6 +1,17 @@
 package cat.uvic.teknos.m06.company.domain.models;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+import java.util.Date;
+import java.util.List;
+
+@Entity
 public class Customer {
+    @Id
+    @GeneratedValue
+    private int id;
 
     private  String name;
     private  String adress;
