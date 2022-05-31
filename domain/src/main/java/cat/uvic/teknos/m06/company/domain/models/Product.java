@@ -1,14 +1,22 @@
 package cat.uvic.teknos.m06.company.domain.models;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Product {
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
 
     private  String description;
-    private int ProductNum;
+    private int id;
 
 
-    public Integer getProductNum() {return ProductNum;}
+    public Integer getId() {return id;}
 
-    public int setProductNum(int anInt) { this.ProductNum = ProductNum;
+    public int setId(int anInt) { this.id = id;
         return 0;
     }
 

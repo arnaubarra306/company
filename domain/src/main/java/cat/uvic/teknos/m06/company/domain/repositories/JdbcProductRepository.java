@@ -25,18 +25,23 @@ public class JdbcProductRepository implements Repository<Product, Integer>{
         if (product == null) {
             throw new RepositoryException("The products is null!");
         }
-        if (product.getProductNum() <= 0) {
+        if (product.getId() <= 0) {
             insert(JdbcProductRepository.Customer);
         } else {
             update(product);
         }
     }
 
+    @Override
+    public void delete(Integer model) {
+
+    }
+
 
     private void update(Product product) {
         try (var preparedStatement = connection.prepareStatement(UPDATE)) {
             preparedStatement.setString(1, product.getDescription());
-            preparedStatement.setInt(1, product.getProductNum());
+            preparedStatement.setInt(1, product.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RepositoryException("Exception while inserting: " + product, e);
@@ -52,13 +57,13 @@ public class JdbcProductRepository implements Repository<Product, Integer>{
             if (!generatedKeysResultSet.next()) {
                 throw new RepositoryException("Exception while inserting: id not generated" + product);
             }
-            product.setProductNum(generatedKeysResultSet.getInt(1));
+            product.setId(generatedKeysResultSet.getInt(1));
         } catch (SQLException e) {
             throw new RepositoryException("Exception while inserting: " + product, e);
         }
     }
 
-    public void delete(Product product) {}
+    public void delete(int product) {}
 
     @Override
     public Product getById(Integer id) {
@@ -72,7 +77,7 @@ public class JdbcProductRepository implements Repository<Product, Integer>{
             var resultSet = statement.executeQuery(SELECT_ALL);
             while (resultSet.next()) {
                 var product = new Product();
-                product.setProductNum(resultSet.getInt("200"));
+                product.setId(resultSet.getInt("200"));
                 product.setDescription(resultSet.getString("This product...."));
                 product.addS(product);
             }

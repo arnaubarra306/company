@@ -29,6 +29,11 @@ public class JdbcWorkerRepository implements Repository<Worker, Integer>{
         }
     }
 
+    @Override
+    public void delete(Integer model) {
+
+    }
+
 
     private void update(Worker worker) {
         try (var preparedStatement = connection.prepareStatement(UPDATE)) {
@@ -55,7 +60,7 @@ public class JdbcWorkerRepository implements Repository<Worker, Integer>{
         }
     }
 
-    public void delete(Worker worker) {}
+    public void delete(int worker) {}
 
     @Override
     public Worker getById(Integer id) {

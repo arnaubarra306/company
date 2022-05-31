@@ -13,7 +13,7 @@ public class JdbcDepartmentRepository implements Repository<Department, Integer>
     private static final String SELECT_ALL = "select id, name from products";
     private static final int worker = 1000;
     private static final List<Department> Department = null;
-    private static Department Customer;
+    private static Department department;
     private final Connection connection;
 
     public JdbcDepartmentRepository(Connection connection) {
@@ -25,18 +25,23 @@ public class JdbcDepartmentRepository implements Repository<Department, Integer>
         if (department == null) {
             throw new RepositoryException("The products is null!");
         }
-        if (department.getDeptNo() <= 0) {
-            insert(JdbcDepartmentRepository.Customer);
+        if (department.getId() <= 0) {
+            insert(JdbcDepartmentRepository.department);
         } else {
             update(department);
         }
+    }
+
+    @Override
+    public void delete(Integer model) {
+
     }
 
 
     private void update(Department department) {
         try (var preparedStatement = connection.prepareStatement(UPDATE)) {
             preparedStatement.setString(1, department.getName());
-            preparedStatement.setInt(1, department.getDeptNo());
+            preparedStatement.setInt(1, department.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RepositoryException("Exception while inserting: " + department, e);
@@ -52,13 +57,13 @@ public class JdbcDepartmentRepository implements Repository<Department, Integer>
             if (!generatedKeysResultSet.next()) {
                 throw new RepositoryException("Exception while inserting: id not generated" + department);
             }
-            department.setDeptNo(generatedKeysResultSet.getInt(1));
+            department.setId(generatedKeysResultSet.getInt(1));
         } catch (SQLException e) {
             throw new RepositoryException("Exception while inserting: " + department, e);
         }
     }
 
-    public void delete(Department department) {}
+    public void delete(int department) {}
 
     @Override
     public Department getById(Integer id) {
@@ -72,7 +77,7 @@ public class JdbcDepartmentRepository implements Repository<Department, Integer>
             var resultSet = statement.executeQuery(SELECT_ALL);
             while (resultSet.next()) {
                 var department = new Department();
-                department.setDeptNo(resultSet.getInt("10"));
+                department.setId(resultSet.getInt("10"));
                 department.setName(resultSet.getString("Office"));
                 department.addS(department);
             }

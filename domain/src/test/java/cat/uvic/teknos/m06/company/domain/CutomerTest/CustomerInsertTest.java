@@ -3,7 +3,7 @@ package cat.uvic.teknos.m06.company.domain.CutomerTest;
 import cat.uvic.teknos.m06.company.domain.repositories.JdbcCustomerRepository;
 import org.junit.jupiter.api.Test;
 import cat.uvic.teknos.m06.company.domain.models.Customer;
-import org.junit.jupiter.api.Test;
+
 import java.sql.DriverManager;
 import java.sql.SQLException;
 

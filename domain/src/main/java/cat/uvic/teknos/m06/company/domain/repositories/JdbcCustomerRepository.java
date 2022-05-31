@@ -1,7 +1,6 @@
 package cat.uvic.teknos.m06.company.domain.repositories;
 
 import cat.uvic.teknos.m06.company.domain.models.Customer;
-import cat.uvic.teknos.m06.company.domain.models.Department;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -21,22 +20,27 @@ public class JdbcCustomerRepository implements Repository<Customer, Integer>{
         this.connection = connection;
     }
 
-    public void save(Department worker) {
-        if (worker == null) {
+    public void save(Customer customer) {
+        if (customer == null) {
             throw new RepositoryException("The products is null!");
         }
-        if (worker.getCustomerCode() <= 0) {
+        if (customer.getCustomerCode() <= 0) {
             insert(JdbcCustomerRepository.customer);
         } else {
-            update(worker);
+            update(customer);
         }
+    }
+
+    @Override
+    public void delete(Integer model) {
+
     }
 
 
     private void update(Customer customer) {
         try (var preparedStatement = connection.prepareStatement(UPDATE)) {
             preparedStatement.setString(1, customer.getName());
-            preparedStatement.setInt(1, customer.setCustomerCode());
+            preparedStatement.setInt(1, customer.setCustomerCode(12123));
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RepositoryException("Exception while inserting: " + customer, e);
@@ -52,13 +56,13 @@ public class JdbcCustomerRepository implements Repository<Customer, Integer>{
             if (!generatedKeysResultSet.next()) {
                 throw new RepositoryException("Exception while inserting: id not generated" + customer);
             }
-            customer.setCustomerCode();
+            customer.setCustomerCode(12123);
         } catch (SQLException e) {
             throw new RepositoryException("Exception while inserting: " + customer, e);
         }
     }
 
-    public void delete(Customer customer) {}
+    public void delete(int customer) {}
 
     @Override
     public Customer getById(Integer id) {
@@ -72,7 +76,7 @@ public class JdbcCustomerRepository implements Repository<Customer, Integer>{
             var resultSet = statement.executeQuery(SELECT_ALL);
             while (resultSet.next()) {
                 var customer = new Customer();
-                customer.setCustomerCode();
+                customer.setCustomerCode(12123);
                 customer.setName(resultSet.getString("name"));
                 customer.addS(customer);
             }

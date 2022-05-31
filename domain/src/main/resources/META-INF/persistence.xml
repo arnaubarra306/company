@@ -1,5 +1,5 @@
 <persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd" version="2.1">
-    <persistence-unit name="bandhub_mysql" transaction-type="RESOURCE_LOCAL">
+    <persistence-unit name="company_mysql" transaction-type="RESOURCE_LOCAL">
         <description> Hibernate JPA videogame-namagement configuration</description>
 
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
@@ -16,14 +16,14 @@
         <properties>
             <!--<property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver" />-->
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/company" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/jbacompany" />
             <property name="javax.persistence.jdbc.user" value="root" />
-            <property name="javax.persistence.jdbc.password" value="null" />
+            <property name="javax.persistence.jdbc.password" value="" />
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect" />
             <property name="hibernate.show_sql" value="true" />
             <property name="hibernate.hbm2ddl.auto" value="create" />
 
-            <!--<property name="javax.persistence.sql-load-script-source" value="import.sql" />-->
+            <property name="javax.persistence.sql-load-script-source" value="data.sql" />
         </properties>
     </persistence-unit>
 </persistence>
